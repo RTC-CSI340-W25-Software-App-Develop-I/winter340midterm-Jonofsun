@@ -23,7 +23,67 @@ const reviews = [
   },
 ];
 /////////////////////////////////////////////////////////////////////
-
 //1. Append the reviews to the DOM
 
+const reviewsSection = document.querySelector(".reviews");
+
+function renderReview(review) {
+  const container = document.createElement("div");
+  container.classList.add("review_container");
+
+  const img = document.createElement("img");
+  img.src = review.image;
+  container.appendChild(img);
+
+  const contentDiv = document.createElement("div");
+
+  const usernameEl = document.createElement("p");
+  usernameEl.textContent = review.username;
+  contentDiv.appendChild(usernameEl);
+
+  const starEl = document.createElement("p");
+  starEl.textContent = `Star Rating: ${review.star}`;
+  contentDiv.appendChild(starEl);
+
+  const reviewEl = document.createElement("p");
+  reviewEl.textContent = review.review;
+  contentDiv.appendChild(reviewEl);
+
+  container.appendChild(contentDiv);
+
+  reviewsSection.appendChild(container);
+}
+reviews.forEach((review) => renderReview(review));
 //2. Append new reviews to the DOM from the form
+function updateAverageStarRating() {
+  const starRatingElement = document.querySelector(".starRating");
+  const average = calculateStarAverage(reviews);
+  starRatingElement.textContent = `Star Rating: ${average.toFixed(1)}`;
+}
+updateAverageStarRating();
+
+const form = document.querySelector("form");
+
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+
+  const username = document.getElementById("username").value;
+  const image = document.getElementById("image").value;
+  const star = parseInt(document.getElementById("star").value);
+  const reviewText = document.getElementById("review").value;
+
+  const newReview = {
+    username,
+    image,
+    star,
+    review: reviewText,
+  };
+
+  reviews.push(newReview);
+
+  renderReview(newReview);
+
+  updateAverageStarRating();
+
+  form.reset();
+});
