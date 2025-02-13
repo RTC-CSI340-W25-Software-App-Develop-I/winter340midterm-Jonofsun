@@ -120,3 +120,17 @@ ReferenceError: document is not defined
     at async exports.handler (/Users/tenshin/RTC_BAS/340SoftwareEngineeringI/Midterm/winter340midterm-Jonofsun/node_modules/mocha/lib/cli/run.js:375:5) {
   code: 'ERR_REQUIRE_CYCLE_MODULE'
 */
+/*
+Refactor to Isolate renderReview:
+Move the renderReview function into its own module 
+(for example, create a new file called renderReview.js). 
+Then import that function in both index.js and your test file. 
+This breaks the cycle because your test file will no longer be pulling in the rest of the code in index.js.
+*/
+/*
+Configure Mocha for ESM:
+Another approach is to ensure your project is entirely using ESM. 
+You can add "type": "module" in your package.json to force Node.js to treat all files as ES modules. 
+However, even with that setting, you must be careful to avoid circular dependencies by structuring your imports appropriately. 
+In many cases, isolating functions you want to test (like in option 1) is cleaner and avoids the cycle.
+*/
