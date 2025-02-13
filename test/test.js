@@ -51,7 +51,7 @@ describe("calculateStarAverage", function () {
     assert.equal(average, 3);
   });
 });
-
+//Made a test branch to try and fix the error by restructuring the code and adding a new file called renderReview.js
 // describe("renderReview", function () {
 //   it("should append a review to the DOM", function () {
 //     const reviewsSection = document.createElement("div");
