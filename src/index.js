@@ -1,5 +1,4 @@
 //Do not change //////////////////////////////////
-import { calculateStarAverage } from "../src/logic.js";
 
 const reviews = [
   {
@@ -22,46 +21,25 @@ const reviews = [
       "The coffee was great but the employees didn't let me stay past closing! ): Worst experience ever.",
   },
 ];
-/////////////////////////////////////////////////////////////////////
-//1. Append the reviews to the DOM
 
+/////////////////////////////////////////////////////////////////////
+// Append the reviews to the DOM
 const reviewsSection = document.querySelector(".reviews");
 
-function renderReview(review) {
-  const container = document.createElement("div");
-  container.classList.add("review_container");
-
-  const img = document.createElement("img");
-  img.src = review.image;
-  container.appendChild(img);
-
-  const contentDiv = document.createElement("div");
-
-  const usernameEl = document.createElement("p");
-  usernameEl.textContent = review.username;
-  contentDiv.appendChild(usernameEl);
-
-  const starEl = document.createElement("p");
-  starEl.textContent = `Star Rating: ${review.star}`;
-  contentDiv.appendChild(starEl);
-
-  const reviewEl = document.createElement("p");
-  reviewEl.textContent = review.review;
-  contentDiv.appendChild(reviewEl);
-
-  container.appendChild(contentDiv);
-
-  reviewsSection.appendChild(container);
-}
 reviews.forEach((review) => renderReview(review));
-//2. Append new reviews to the DOM from the form
+
+/////////////////////////////////////////////////////////////////////
+// Update average star rating
 function updateAverageStarRating() {
   const starRatingElement = document.querySelector(".starRating");
   const average = calculateStarAverage(reviews);
   starRatingElement.textContent = `Star Rating: ${average.toFixed(1)}`;
 }
+
 updateAverageStarRating();
 
+/////////////////////////////////////////////////////////////////////
+// Handle new review submission
 const form = document.querySelector("form");
 
 form.addEventListener("submit", (e) => {
@@ -82,7 +60,6 @@ form.addEventListener("submit", (e) => {
   reviews.push(newReview);
 
   renderReview(newReview);
-
   updateAverageStarRating();
 
   form.reset();
